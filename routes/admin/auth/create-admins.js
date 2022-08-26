@@ -33,9 +33,9 @@ app.post("/", async (req, res) => {
         }
       }
     );
-  } catch (error) {
-    console.log(error);
-    throw error;
+  } catch (errors) {
+    console.log(errors);
+    if (errors) return({status: "error", error: errors});
   }
 });
 

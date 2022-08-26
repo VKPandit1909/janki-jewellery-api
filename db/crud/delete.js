@@ -3,7 +3,7 @@ function Delete(conn, tblName, whereClause) {
     "DELETE FROM " + tblName + " WHERE ?",
     whereClause,
     function (err, rows, fields) {
-      if (err) throw err.code;
+      if (err) return({status: "error", error: err});
       console.log("The solution is: ", rows);
     }
   );

@@ -32,11 +32,6 @@ conn.on("error", function (err) {
     throw err; // server variable configures this)
   }
 });
-conn.query("SELECT * from admin_users", function (err, rows, fields) {
-  if (err) throw err.code;
-  console.log("The solution is: ", rows);
-});
-// conn.end();
 
 // Main Routing
 app.use("/", home);

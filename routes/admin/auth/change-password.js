@@ -9,7 +9,8 @@ const conn = require("../../../db/config");
 require("dotenv").config();
 
 app.post("/", async (req, res) => {
-  const { token, password: plainTextPassword } = req.body;
+  const { password: plainTextPassword } = req.body;
+  const token = req.headers.authorization.split(' ')[1];
   try {
     const adminuser = jwt.verify(token, process.env.JWT_SECRET);
     const _id = adminuser.id;
