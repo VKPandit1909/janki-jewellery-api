@@ -1,16 +1,16 @@
 const express = require("express");
 let app = express.Router();
-const { Insert } = require("../../../db/crud/insert");
-const dformat = require("../../../db/timestamp");
+const { Insert } = require("../../../../db/crud/insert");
+const dformat = require("../../../../db/timestamp");
 // JWT TOKEN Verify
 const jwt = require("jsonwebtoken");
-const { connection } = require("../../../db/config");
+const { connection } = require("../../../../db/config");
 // ENVIRONMENT VARIABLES
 require("dotenv").config();
 
 app.post("/", async (req, res) => {
   console.log(req.body);
-  const { category_name, priority_order, category_banner } = req.body;
+  const { title, type, value } = req.body;
 
   try {
     const token = req.headers.authorization.split(" ")[1];
@@ -18,16 +18,16 @@ app.post("/", async (req, res) => {
     jwt.verify(token, process.env.JWT_SECRET);
 
     // Execution
-    const category_data = {
-      category_name: category_name,
-      priority_order: priority_order,
-      category_banner: category_banner,
+    const attribute_data = {
+      attribute_title: title,
+      attribute_type: type,
+      attribute_value: value,
       date: dformat,
     };
-    Insert(connection, "categories", category_data);
+    Insert(connection, "attributes", attribute_data);
     return res.json({
       status: "ok",
-      message: "Added Category Successfully.",
+      message: "Added Attribute Successfully.",
     });
   } catch (errors) {
     console.log(errors);

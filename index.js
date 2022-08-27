@@ -2,9 +2,6 @@ const express = require("express");
 var cors = require("cors");
 const bodyParser = require("body-parser");
 
-const { handleDisconnect } = require("./db/restartConnection");
-const conn = require("./db/config");
-
 // ENVIRONMENT VARIABLES
 require("dotenv").config();
 
@@ -21,17 +18,6 @@ const port = process.env.PORT || 5001;
 app.use(cors());
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
-
-conn.on("error", function (err) {
-  console.log("db error", err);
-  if (err.code === "PROTOCOL_CONNECTION_LOST") {
-    // Connection to the MySQL server is usually
-    handleDisconnect(); // lost due to either server restart, or a
-  } else {
-    // connnection idle timeout (the wait_timeout
-    throw err; // server variable configures this)
-  }
-});
 
 // Main Routing
 app.use("/", home);

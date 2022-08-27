@@ -2,14 +2,14 @@ const express = require('express');
 let app = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
-const conn = require("./../../../db/config");
+const { connection } = require('../../../db/config');
 
 // ENVIRONMENT VARIABLES
 require("dotenv").config();
 
 app.post('/', async (req, res) => {
     const { username, password } = req.body;
-    conn.query("SELECT * FROM admin_users WHERE ?", {username: username}, function(err, results) {
+    connection.query("SELECT * FROM admin_users WHERE ?", {username: username}, function(err, results) {
       if(err) return res.json({ status: "error", error: "Invalid username/password" });
       if(results.length == 1) {
         const result = Object.values(JSON.parse(JSON.stringify(results)));

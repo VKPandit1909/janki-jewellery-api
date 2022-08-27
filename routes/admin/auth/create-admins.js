@@ -2,8 +2,9 @@ const express = require("express");
 let app = express.Router();
 var bcrypt = require("bcryptjs");
 const { Insert } = require("../../../db/crud/insert");
-const conn = require("../../../db/config");
+
 const dformat = require("../../../db/timestamp");
+const { connection } = require("../../../db/config");
 
 app.post("/", async (req, res) => {
   console.log(req.body);
@@ -17,7 +18,7 @@ app.post("/", async (req, res) => {
       type: type,
       date: dformat,
     };
-    conn.query(
+    connection.query(
       "SELECT * FROM admin_users WHERE ?",
       { username: username },
       function (err, result) {
@@ -25,7 +26,7 @@ app.post("/", async (req, res) => {
         if (result.length > 0) {
           return res.json({ status: "error", error: "User exists" });
         } else {
-          Insert(conn, "admin_users", admin_data);
+          Insert(connection, "admin_users", admin_data);
           return res.json({
             status: "ok",
             message: "Admin Created Successfully.",
@@ -35,7 +36,7 @@ app.post("/", async (req, res) => {
     );
   } catch (errors) {
     console.log(errors);
-    if (errors) return({status: "error", error: errors});
+    if (errors) return { status: "error", error: errors };
   }
 });
 
