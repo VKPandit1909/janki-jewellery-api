@@ -2,14 +2,14 @@ const express = require("express");
 let app = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const conn = require("./../../../db/config");
+const { connection } = require('../../../db/config');
 
 // ENVIRONMENT VARIABLES
 require("dotenv").config();
 
 app.post("/", async (req, res) => {
   const { email, password } = req.body;
-  conn.query(
+  connection.query(
     "SELECT * FROM users WHERE ?",
     { email: email },
     function (err, results) {

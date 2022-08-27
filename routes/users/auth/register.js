@@ -2,7 +2,7 @@ const express = require("express");
 let app = express.Router();
 var bcrypt = require("bcryptjs");
 const { Insert } = require("../../../db/crud/insert");
-const conn = require("../../../db/config");
+const { connection } = require('../../../db/config');
 const dformat = require("../../../db/timestamp");
 
 app.post("/", async (req, res) => {
@@ -17,7 +17,7 @@ app.post("/", async (req, res) => {
 
       date: dformat,
     };
-    conn.query(
+    connection.query(
       "SELECT * FROM users WHERE ?",
       { email: email },
       function (err, result) {

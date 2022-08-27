@@ -25,7 +25,7 @@ app.use("/", home);
 app.use("/admin", adminAuth);
 app.use("/admin/categories", adminCategory);
 app.use("/admin/products", adminProducts);
-app.use("/users", userAuth);
+app.use("/user", userAuth);
 
 // app.get('/', (req, res) => {
 //     res.send(mongoUri);

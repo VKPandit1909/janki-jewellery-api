@@ -2,7 +2,7 @@ const express = require("express");
 let app = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const conn = require("./../../../db/config");
+const { connection } = require('../../../db/config');
 
 app.use(express.json());
 // ENVIRONMENT VARIABLES
@@ -13,7 +13,7 @@ app.post("/", async (req, res) => {
   try {
     const user = jwt.verify(token, process.env.JWT_SECRET);
     console.log(user);
-    conn.query(
+    connection.query(
       "SELECT * FROM users WHERE ?",
       { email: user.email },
       function (err, results) {
