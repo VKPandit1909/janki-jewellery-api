@@ -10,6 +10,7 @@ const home = require("./routes/home");
 const adminAuth = require("./routes/admin/auth/index");
 const adminCategory = require("./routes/admin/categories/index");
 const adminProducts = require("./routes/admin/products/index");
+const userAuth = require("./routes/users/auth/index");
 
 // express app
 const app = express();
@@ -24,6 +25,7 @@ app.use("/", home);
 app.use("/admin", adminAuth);
 app.use("/admin/categories", adminCategory);
 app.use("/admin/products", adminProducts);
+app.use("/users", userAuth);
 
 // app.get('/', (req, res) => {
 //     res.send(mongoUri);
@@ -36,12 +38,10 @@ app.use((req, res) => {
   console.log("Host", req.hostname);
   console.log("Path", req.path);
   console.log("Method", req.method);
-  res
-    .status(404)
-    .send({
-      status: "error",
-      error: "Cannot " + req.method + " Method " + req.path,
-    });
+  res.status(404).send({
+    status: "error",
+    error: "Cannot " + req.method + " Method " + req.path,
+  });
 });
 
 app.listen(port, () => {
