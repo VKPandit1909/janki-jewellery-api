@@ -1,16 +1,15 @@
 const express = require("express");
 let app = express.Router();
-const { Insert } = require("../../../db/crud/insert");
-const dformat = require("../../../db/timestamp");
 // JWT TOKEN Verify
 const jwt = require("jsonwebtoken");
 const { connection } = require("../../../db/config");
+const { Delete } = require("../../../db/crud/delete");
 // ENVIRONMENT VARIABLES
 require("dotenv").config();
 
 app.post("/", async (req, res) => {
   console.log(req.body);
-  const { title, priority, banner } = req.body;
+  const { id } = req.body;
 
   try {
     const token = req.headers.authorization.split(" ")[1];
@@ -18,16 +17,13 @@ app.post("/", async (req, res) => {
     jwt.verify(token, process.env.JWT_SECRET);
 
     // Execution
-    const category_data = {
-      category_title: title,
-      category_priority: priority,
-      category_banner: banner,
-      date: dformat,
+    const attribute_data = {
+      id: id
     };
-    Insert(connection, "categories", category_data);
+    Delete(connection, "categories", attribute_data);
     return res.json({
       status: "ok",
-      message: "Added Category Successfully.",
+      message: "Deleted Category Successfully.",
     });
   } catch (errors) {
     console.log(errors);

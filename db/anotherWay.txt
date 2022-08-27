@@ -15,3 +15,32 @@ var conn = mysql.createPool({
 // });
 
 module.exports = conn;
+
+
+
+
+
+
+
+
+
+var mysql = require('mysql');
+var pool  = mysql.createPool({
+  connectionLimit : 10,
+  host            : 'localhost',
+  user            : 'root',
+  password        : ''
+});
+
+pool.getConnection(function(err, connection) {
+    connection.query( 'SELECT something FROM sometable', function(err, rows) {
+
+      console.log(pool._freeConnections.indexOf(connection)); // -1
+
+      connection.release();
+
+      console.log(pool._freeConnections.indexOf(connection)); // 0
+
+   });
+});
+

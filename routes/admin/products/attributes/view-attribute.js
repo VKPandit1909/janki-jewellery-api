@@ -7,6 +7,7 @@ const { connection } = require("../../../../db/config");
 require("dotenv").config();
 
 app.get("/", async (req, res) => {
+    console.log(connection);
   try {
     const token = req.headers.authorization.split(" ")[1];
     // Authentication
