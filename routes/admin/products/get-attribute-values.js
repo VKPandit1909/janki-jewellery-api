@@ -7,7 +7,7 @@ const { connection } = require("../../../db/config");
 require("dotenv").config();
 
 app.get("/", async (req, res) => {
-    console.log(connection);
+  console.log(connection);
   try {
     const token = req.headers.authorization.split(" ")[1];
     // Authentication
@@ -15,7 +15,8 @@ app.get("/", async (req, res) => {
 
     // Execution
     connection.query(
-      "SELECT DISTINCT(attribute_title) FROM attributes",
+      "SELECT * FROM attributes WHERE ?",
+      req.query,
       function (err, results) {
         console.log(results);
         if (err) return res.json({ status: "error", error: err.code });
