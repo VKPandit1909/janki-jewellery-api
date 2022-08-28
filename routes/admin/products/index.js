@@ -4,6 +4,7 @@ let app = express.Router();
 // Product Files
 const AddProduct = require("./add-products");
 const ViewProducts = require("./view-products");
+const ViewSingleProduct = require("./view-single-product");
 const AddAttribute = require("./attributes/add-attribute");
 const ViewAttributes = require("./attributes/view-attribute");
 const DeleteAttributes = require("./attributes/delete-attribute");
@@ -12,6 +13,7 @@ const AttributesValues = require("./get-attribute-values");
 
 app.use("/add",AddProduct);
 app.use("/view", ViewProducts);
+app.use("/single", ViewSingleProduct);
 app.use("/attributes/add",AddAttribute);
 app.use("/attributes/view", ViewAttributes);
 app.use("/attributes/delete", DeleteAttributes);

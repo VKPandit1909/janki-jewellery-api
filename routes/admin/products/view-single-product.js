@@ -3,27 +3,25 @@ let app = express.Router();
 // JWT TOKEN Verify
 const jwt = require("jsonwebtoken");
 const { connection } = require("../../../db/config");
-const { Delete } = require("../../../db/crud/delete");
 // ENVIRONMENT VARIABLES
 require("dotenv").config();
 
-app.post("/", async (req, res) => {
-  console.log(req.body);
-  const { id } = req.body;
-
+app.get("/:id", async (req, res) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     // Authentication
     jwt.verify(token, process.env.JWT_SECRET);
 
     // Execution
-    const category_data = {
-      id: id
-    };
-    Delete(connection, "categories", category_data);
-    return res.json({
-      status: "ok",
-      message: "Deleted Category Successfully.",
+    var id = req.params.id;
+    var single_product_data = {id: id};
+    connection.query("SELECT *, id AS 'key' FROM products WHERE ?", single_product_data, function (err, results) {
+      if (err) return res.json({ status: "error", error: err.code });
+      const result = Object.values(JSON.parse(JSON.stringify(results)));
+      return res.json({
+        status: "ok",
+        data: result,
+      });
     });
   } catch (errors) {
     console.log(errors);

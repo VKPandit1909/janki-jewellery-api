@@ -17,10 +17,10 @@ app.post("/", async (req, res) => {
     jwt.verify(token, process.env.JWT_SECRET);
 
     // Execution
-    const category_data = {
+    const product_data = {
       id: id
     };
-    Delete(connection, "categories", category_data);
+    Delete(connection, "products", product_data);
     return res.json({
       status: "ok",
       message: "Deleted Category Successfully.",

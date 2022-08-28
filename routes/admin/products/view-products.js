@@ -13,7 +13,7 @@ app.get("/", async (req, res) => {
     jwt.verify(token, process.env.JWT_SECRET);
 
     // Execution
-    connection.query("SELECT * FROM products", function (err, results) {
+    connection.query("SELECT  id AS 'key', id, product_name, category, stock FROM products", function (err, results) {
       if (err) return res.json({ status: "error", error: err.code });
       const result = Object.values(JSON.parse(JSON.stringify(results)));
       return res.json({

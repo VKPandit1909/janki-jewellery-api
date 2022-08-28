@@ -10,20 +10,19 @@ require("dotenv").config();
 
 app.post("/", async (req, res) => {
   console.log(req.body);
-  const { category_name, priority_order, category_banner } = req.body;
+  const {product_variation} = req.body;
+  console.log(JSON.parse(product_variation));
   try {
     const token = req.headers.authorization.split(" ")[1];
     // Authentication
     jwt.verify(token, process.env.JWT_SECRET);
 
     // Execution
-    const category_data = {
-      category_name: category_name,
-      priority_order: priority_order,
-      category_banner: category_banner,
-      date: dformat,
-    };
-    Insert(connection, "categories", category_data);
+    const product_data = req.body;
+    product_data.date = dformat;
+    // product_data.product_variation = JSON.parse(product_variation);
+    console.log(product_data);
+    Insert(connection, "products", product_data);
     return res.json({
       status: "ok",
       message: "Added Category Successfully.",
