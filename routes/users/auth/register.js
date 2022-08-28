@@ -25,7 +25,7 @@ app.post("/", async (req, res) => {
         if (result.length > 0) {
           return res.json({ status: "error", error: "User exists" });
         } else {
-          Insert(conn, "users", user_data);
+          Insert(connection, "users", user_data);
           return res.json({
             status: "ok",
             message: "Admin Created Successfully.",
