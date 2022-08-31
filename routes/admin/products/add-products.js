@@ -25,7 +25,7 @@ app.post("/", async (req, res) => {
     Insert(connection, "products", product_data);
     return res.json({
       status: "ok",
-      message: "Added Category Successfully.",
+      message: "Added Product Successfully.",
     });
   } catch (errors) {
     console.log(errors);

@@ -14,7 +14,7 @@ app.get("/", async (req, res) => {
 
     // Execution
     connection.query(
-      "SELECT *,id as 'key' FROM categories",
+      "SELECT *,id as 'key' FROM categories ORDER BY category_priority",
       function (err, results) {
         if (err) return res.json({ status: "error", error: err.code });
         const result = Object.values(JSON.parse(JSON.stringify(results)));

@@ -10,10 +10,12 @@ const ViewAttributes = require("./attributes/view-attribute");
 const DeleteAttributes = require("./attributes/delete-attribute");
 const DistinctAttributes = require("./get-distinct-attributes");
 const AttributesValues = require("./get-attribute-values");
+const ProductReviews =  require("./product-reviews");
 
 app.use("/add",AddProduct);
 app.use("/view", ViewProducts);
 app.use("/single", ViewSingleProduct);
+app.use("/reviews", ProductReviews);
 app.use("/attributes/add",AddAttribute);
 app.use("/attributes/view", ViewAttributes);
 app.use("/attributes/delete", DeleteAttributes);
