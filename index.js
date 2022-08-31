@@ -1,7 +1,7 @@
 const express = require("express");
 var cors = require("cors");
 const bodyParser = require("body-parser");
-var multer = require('multer');
+var multer = require("multer");
 
 // ENVIRONMENT VARIABLES
 require("dotenv").config();
@@ -16,14 +16,15 @@ const adminCustomers = require("./routes/admin/customers/index");
 const adminBlogs = require("./routes/admin/blogs/index");
 const adminContact = require("./routes/admin/contact/index");
 const userAuth = require("./routes/users/auth/index");
+const userProduct = require("./routes/users/products/index");
 
 // express app
 const app = express();
 const port = process.env.PORT || 5001;
 
 app.use(cors());
-app.use(bodyParser.json({limit: '50mb'})); // for parsing application/json
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true }));
+app.use(bodyParser.json({ limit: "50mb" })); // for parsing application/json
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 // Main Routing
 app.use("/", home);
@@ -35,10 +36,11 @@ app.use("/admin/products", adminProducts);
 app.use("/admin/customers", adminCustomers);
 app.use("/admin/blogs", adminBlogs);
 app.use("/admin/contact", adminContact);
+app.use("/user/products", userProduct);
 
 // Retrieve Image check
-app.use(express.static('public'));
-app.use('/uploads', express.static('uploads'));
+app.use(express.static("public"));
+app.use("/uploads", express.static("uploads"));
 // Upload Check
 // const upload = require("./routes/fileUpload/index copy");
 // app.use("/admins", upload);
